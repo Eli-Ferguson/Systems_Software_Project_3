@@ -37,6 +37,8 @@ void procedure_declaration(), statement(), condition(), expression(), term(), fa
 
 instruction *parse(lexeme *list, int printTable, int printCode)
 {
+	printf("Here");
+
 	list = list;
 
 	// set up program variables
@@ -936,6 +938,9 @@ void printparseerror(int err_code)
 
 	free(code);
 	free(table);
+
+
+	exit(0);
 
 	//! Add exit()
 }
