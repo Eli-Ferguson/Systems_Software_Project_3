@@ -26,7 +26,7 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int codeIdx, tableIdx, listIdx, level, registerCounter;
+int code, codeIdx, table, tableIdx, listIdx, level, registerCounter;
 
 lexeme * list;
 
@@ -97,7 +97,7 @@ void block()
 int var_declaration()
 {
 	int memorysize = 3;
-	int symbolname;
+	char * symbolName = malloc(sizeof(char) * 12);
 	int arraysize;
 
 	if ( list[listIdx].type == varsym )
@@ -112,13 +112,13 @@ int var_declaration()
 				printparseerror(2);
 			}
 
-			if ( multipledeclarationcheck(list[listIdx].name) != -1 )
+			if ( multipledeclarationcheck(list[listIdx].type) != -1 )
 			{
 				//! error 3
 				printparseerror(3);
 			}
 
-			symbolname = list[listIdx].name;
+			strcpy(symbolName, list[listIdx].name);
 			listIdx++;
 
 			if ( list[listIdx].type == lbracketsym )
@@ -146,12 +146,12 @@ int var_declaration()
 				}
 
 				listIdx++;
-				addtosymboltable(2, symbolname, arraysize, level, memorysize, 0);
+				addtosymboltable(2, symbolName, arraysize, level, memorysize, 0);
 				memorysize += arraysize;
 			}
 			else
 			{
-				addtosymboltable(1, symbolname, 0, level, memorysize, 0);
+				addtosymboltable(1, symbolName, 0, level, memorysize, 0);
 				memorysize++;
 			}
 		} while ( list[listIdx].type == commasym );
