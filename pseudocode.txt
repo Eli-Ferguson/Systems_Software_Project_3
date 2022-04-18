@@ -263,6 +263,7 @@ statement
 		expression()
 		emit WRT (9, R = registercounter, 0, 0)
 		registercounter--
+
 condition
 	expression()
 	if list[listidx] is eqlsym

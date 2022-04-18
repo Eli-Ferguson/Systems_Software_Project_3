@@ -26,11 +26,13 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int code, codeIdx, table, tableIdx, listIdx, level, registercounter;
+int code, codeIdx, table, tableIdx, listIdx, level, registerCounter;
 
 lexeme * list;
 
 void block();
+int var_declaration();
+void procedure(), statement(), condition(), expression(), term(), factor();
 
 
 instruction *parse(lexeme *list, int printTable, int printCode)
@@ -176,6 +178,8 @@ int var_declaration()
 	}
 }
 
+
+
 void emit(int opname, int reg, int level, int mvalue)
 {
 	code[cIndex].opcode = opname;
@@ -320,6 +324,8 @@ void printparseerror(int err_code)
 	
 	free(code);
 	free(table);
+
+	//! Add exit();
 }
 
 void printsymboltable()
