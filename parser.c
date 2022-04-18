@@ -191,8 +191,9 @@ void emit(int opname, int reg, int level, int mvalue)
 
 void procedure_declaration()
 {
-	char[12] symbolname;
-	while (list[listIdx].type == proceduresym)
+	char symbolName[12];
+
+	while (list[listIdx].type == procsym)
 	{
 		listIdx++;
 		if (list[listIdx].type != identsym)
@@ -203,14 +204,14 @@ void procedure_declaration()
         {
 			printparseerror(3);
         }
-		strcpy(symbolname, list[listIdx].name);
+		strcpy(symbolName, list[listIdx].name);
 		listIdx++;
 		if (list[listIdx].type != semicolonsym)
         {
             printparseerror(8);
         }	
 		listIdx++;
-		addtosymboltable(3, symbolname, 0, level, 0, 0);
+		addtosymboltable(3, symbolName, 0, level, 0, 0);
 		block();
 		if (list[listIdx].type != semicolonsym)
         {
