@@ -339,17 +339,20 @@ void statement(){
 			statement();
 		} while( list[listIdx].type == semicolonsym );
 
-		if( list[listIdx].type != endsym ) {
+		if( list[listIdx].type != endsym ) 
+		{
 			if( list[listIdx].type != identsym ||
 				list[listIdx].type != callsym ||
 				list[listIdx].type != beginsym ||
 				list[listIdx].type != ifsym ||
 				list[listIdx].type != dosym ||
 				list[listIdx].type != readsym ||
-				list[listIdx].type != writesym) {
-					printparseerror(16);
+				list[listIdx].type != writesym)
+			{
+				printparseerror(16);
 			}
-			else {
+			else
+			{
 				printparseerror(17);
 			}
 			listIdx++;
@@ -357,7 +360,8 @@ void statement(){
 	}
 
 	//IF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == ifsym ) {
+	if( list[listIdx].type == ifsym )
+	{
 		listIdx++;
 		condition;
 		int jpcidx = cIndex;
@@ -366,13 +370,15 @@ void statement(){
 		emit(8, registerCounter, 0, 0);
 		registerCounter--;
 
-		if( list[listIdx].type != questionsym ){
+		if( list[listIdx].type != questionsym )
+		{
 			printparseerror(18);
 		}
 		listIdx++;
 		statement();
 
-		if( list[listIdx].type == colonsym ) {
+		if( list[listIdx].type == colonsym )
+		{
 			listIdx++;
 			jmpIdx = cIndex;
 			//emit JMP
@@ -391,14 +397,16 @@ void statement(){
 		listIdx++;
 		loopIdx = cIndex;
 		statement();
-		if( list[listIdx].type != whilesym ) {
+		if( list[listIdx].type != whilesym )
+		{
 			printparseerror(19);
 		}
 		listIdx++;
 		condition();
 		registerCounter++;
 
-		if(registerCounter >= 10) {
+		if(registerCounter >= 10)
+		{
 			printparseerror(14);
 		}
 
@@ -415,19 +423,23 @@ void statement(){
 	}
 
 //READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == readsym ) {
+	if( list[listIdx].type == readsym )
+	{
 		listIdx++;
 
-		if( list[listIdx].type != identsym ) {
+		if( list[listIdx].type != identsym )
+		{
 			printparseerror(20);
 		}
 		symbolName = list[listIdx].name;
 		listIdx++;
 
-		if( list[listIdx].type == lbracketsym ) {
+		if( list[listIdx].type == lbracketsym )
+		{
 			listIdx++;
 			symIdx = findsymbol( symbolName, 2 );
-			if(symIdx == -1) {
+			if(symIdx == -1)
+			{
 				if(findsymbol( symbolName, 1 ) != -1) {
 					printparseerror(11);
 				}
@@ -440,12 +452,14 @@ void statement(){
 			}
 			expression();
 			arrayIdxReg = registerCounter;
-			if( list[listIdx].type != rbracketsym ) {
+			if( list[listIdx].type != rbracketsym )
+			{
 				printparseerror(5);
 			}
 			listIdx++;
 			registerCounter++;
-			if( registerCounter >= 10 ) {
+			if( registerCounter >= 10 )
+			{
 				printparseerror(14);
 			}
 
@@ -453,7 +467,8 @@ void statement(){
 			emit(10, registerCounter, 0, 0);
 			registerCounter++;
 
-			if(registerCounter >= 10) {
+			if(registerCounter >= 10)
+			{
 				printparseerror(14);
 			}
 
@@ -467,32 +482,44 @@ void statement(){
 			//emit STO
 			emit(4, registerCounter, level - table[symIdx].level, arrayIdxReg);
 			registerCounter -= 2;
-		else {
+		}
+		else
+		{
             symIdx = findsymbol(symbolName, 1);
-			if (symIdx == -1) {
+			if (symIdx == -1)
+			{
                 if (findsymbol(symbolName, 2) != -1)
+				{
 					printparseerror(12);
+				}
 				else if (findsymbol(symbolName, 3) != -1)
+				{
 					printparseerror(9);
+				}
 				else
+				{
 					printparseerror(10);
+				}
             }
 			registerCounter++;
-			if (registerCounter >= 10) {
+			if (registerCounter >= 10)
+			{
                 printparseerror(14);
             }
-			emit(1, registerCounter, 0, table[symidx].addr); // LIT
-			varlocreg = registerCounter;
+			emit(1, registerCounter, 0, table[symIdx].addr); // LIT
+			varLocReg = registerCounter;
 			registerCounter++;
-			if (registerCounter >= 10) {
+			if (registerCounter >= 10)
+			{
                 printparseerror(14);
             }
-			emit(10, registerCounter, 0, 0) // RED
-			emit (4, registerCounter, level - table[symidx].level, varlocreg); // STO
+			emit(10, registerCounter, 0, 0); // RED
+			emit(4, registerCounter, level - table[symIdx].level, varLocReg); // STO
 			registerCounter -= 2;
         }
 	//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if ( list[listIdx].type == writesym ) {
+    if ( list[listIdx].type == writesym )
+	{
         listIdx++;
         expression();
         emit(9, registerCounter, 0, 0); // WRT
