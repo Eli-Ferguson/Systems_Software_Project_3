@@ -233,15 +233,15 @@ void statement(){
 		
 		symbolName = list[listIdx].name;
 		listIdx++;
-		symIdx = findSymbol(symbolName, 2);
+		symIdx = findsymbol(symbolName, 2);
 
 		if(list[listIdx].type == lbracketsym) {	
 			
 			if(symIdx == -1){
-				if( findSymbol(symbolName, 2) ) {
+				if( findsymbol(symbolName, 2) ) {
 					printparseerror(11);
 				}
-				else if( findSymbol(symbolName, 2) ) {
+				else if( findsymbol(symbolName, 2) ) {
 					printparseerror(9);
 				}
 				else {
@@ -282,13 +282,13 @@ void statement(){
 		}
 
 		else{
-			symIdx = findSymbol(symbolName, 1);
+			symIdx = findsymbol(symbolName, 1);
 
 			if(symIdx == -1) {
-				if( findSymbol(symbolName, 2) != -1 ) {
+				if( findsymbol(symbolName, 2) != -1 ) {
 					printparseerror(12);
 				}
-				else if( findSymbol(symbolName, 3) != -1 ) {
+				else if( findsymbol(symbolName, 3) != -1 ) {
 					printparseerror(9);
 				}
 				else {
@@ -317,7 +317,7 @@ void statement(){
 		listIdx++;
 		if( list[listIdx].type != identsym) printparseerror(15);
 
-		symIdx = findSymbol( list[listIdx].name, 3);
+		symIdx = findsymbol( list[listIdx].name, 3);
 		if(symIdx == -1) {
 			if( findsymbol(list[listIdx].name, 1) != -1 || findsymbol(list[listIdx].name, 2) != -1 ) {
 				printparseerror(15);
@@ -426,9 +426,9 @@ void statement(){
 
 		if( list[listIdx].type == lbracketsym ) {
 			listIdx++;
-			symIdx = findSymbol( symbolName, 2 );
+			symIdx = findsymbol( symbolName, 2 );
 			if(symIdx == -1) {
-				if(findSymbol( symbolName, 1 ) != -1) {
+				if(findsymbol( symbolName, 1 ) != -1) {
 					
 				}
 			}
