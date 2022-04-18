@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 	int i;
 	int tokens = 0, symbols = 0, codes = 0, outputs = 0;
 	
+
 	if (argc < 2)
 	{
 		printf("Error : please include the file name\n");
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
 	input = malloc(MAX_PROGRAM_LENGTH * sizeof(char));
 	i = 0;
 	
+	//!
 	c = fgetc(ifp);
 	while (1)
 	{
@@ -39,6 +41,7 @@ int main(int argc, char *argv[])
 			break;
 	}
 	input[i] = '\0';
+	//!
 	
 	for (i = 2; i < argc; i++)
 	{
@@ -58,6 +61,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	
+	return 0;
 	list = lexanalyzer(input, tokens);
 	if (list == NULL)
 	{
@@ -65,7 +69,11 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 	
+	return 0;
 	code = parse(list, symbols, codes);
+	//!
+	return 0;
+
 	if (code == NULL)
 	{
 	 	free(input);
