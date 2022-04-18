@@ -164,10 +164,11 @@ lexeme * lexanalyzer(char *input, int printFlag)
 		// If Period found return list
 		if ( list[listPos - 1].type == periodsym)
 		{				
-			if (printFlag)
+			//if (printFlag)
+			if (1)
 			{
 				lex_index = listPos;
-				//printtokens();
+				printtokens();
 			}
 
 			return list;

@@ -1,3 +1,70 @@
-token:20
-Here
-Parser Error: begin must be followed by end
+Lexeme Table:
+lexeme		token type
+        var	2
+          a	20
+          ,	7
+          b	20
+          ,	7
+          z	20
+          [	3
+          2	22
+          ]	5
+          ,	7
+          y	20
+          [	3
+          3	22
+          ]	5
+          ;	9
+      begin	8
+          a	20
+         :=	11
+          y	20
+          [	3
+          0	22
+          ]	5
+          *	28
+          y	20
+          [	3
+          0	22
+          +	32
+          1	22
+          ]	5
+          +	32
+          b	20
+          -	30
+          2	22
+          ;	9
+          b	20
+         :=	11
+          8	22
+          %	24
+          4	22
+          +	32
+          (	17
+          -	30
+          1	22
+          +	32
+          5	22
+          )	19
+          /	26
+          3	22
+          ;	9
+          z	20
+          [	3
+          1	22
+          ]	5
+         :=	11
+          -	30
+          (	17
+          8	22
+          *	28
+          3	22
+          )	19
+          ;	9
+        end	10
+          .	1
+
+token:8	begin
+token:20	a
+token:11	
+Parser Error: Undeclared identifier

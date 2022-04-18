@@ -235,10 +235,13 @@ void statement(){
 	int symIdx, arrayIdxReg, varLocReg, jpcIdx, jmpIdx, loopIdx;
 	char * symbolName = malloc(sizeof(char) * 12);
 
+	printf("token:%d\t%s\n", list[listIdx].type, list[listIdx].name);
+
 	//ASSIGNMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if(list[listIdx].type == assignsym)
 	{
-		strcpy(symbolName, list[listIdx].name);
+		// strcpy(symbolName, list[listIdx].name);
+		strcpy(symbolName, ":=");
 		listIdx++;
 		
 		if(list[listIdx].type == lbracketsym) {	
@@ -320,7 +323,7 @@ void statement(){
 		}
 	}
 	//CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if( list[listIdx].type == callsym )
+	if( list[listIdx].type == callsym )
 	{
 		listIdx++;
 		if( list[listIdx].type != identsym) printparseerror(15);
@@ -341,13 +344,12 @@ void statement(){
 	}
 
 	//BEGIN-END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if( list[listIdx].type == beginsym )
+	if( list[listIdx].type == beginsym )
 	{
 		do {
 			listIdx++;
-			printf("token:%d\n", list[listIdx].type);
 			statement();
-		} while( list[listIdx].type == semicolonsym );
+		} while( list[listIdx].type == semicolonsym, identsym );
 
 		if( list[listIdx].type != endsym ) 
 		{
@@ -372,7 +374,7 @@ void statement(){
 	}
 
 	//IF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if( list[listIdx].type == ifsym )
+	if( list[listIdx].type == ifsym )
 	{
 		listIdx++;
 		condition();
@@ -405,7 +407,7 @@ void statement(){
 	}
 
 	//DO-WHILE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if( list[listIdx].type == dosym )
+	if( list[listIdx].type == dosym )
 	{
 		listIdx++;
 		loopIdx = cIndex;
@@ -436,7 +438,7 @@ void statement(){
 	}
 
 	//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if( list[listIdx].type == readsym )
+	if( list[listIdx].type == readsym )
 	{
 		listIdx++;
 
@@ -533,7 +535,7 @@ void statement(){
 	}
 
 	//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	else if ( list[listIdx].type == writesym )
+	if ( list[listIdx].type == writesym )
 	{
 		listIdx++;
 		expression();
@@ -541,11 +543,11 @@ void statement(){
 		registerCounter--;    
 	}
 
-	else
-	{
-		printf("Here\n");
-		listIdx++;
-	}
+	// if( list[listIdx].type == identsym )
+	// {
+	// 	listIdx++;
+	// 	statement();
+	// }
 }
 
 void condition()
