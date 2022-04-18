@@ -240,10 +240,10 @@ void statement(){
 		
 		strcpy(symbolName, list[listIdx].name);
 		listIdx++;
-		symIdx = findsymbol(symbolName, 2);
-
+		
 		if(list[listIdx].type == lbracketsym) {	
-			
+			listIdx++;
+			symIdx = findsymbol(symbolName, 2);
 			if(symIdx == -1){
 				if( findsymbol(symbolName, 2) ) {
 					printparseerror(11);
