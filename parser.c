@@ -26,7 +26,7 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int code, codeidx, table, tableidx, list, listidx, level, registercounter;
+int code, codeIdx, table, tableidx, list, listidx, level, registercounter;
 
 instruction *parse(lexeme *list, int printTable, int printCode)
 {
@@ -37,14 +37,30 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 	tIndex = 0;
 
 	//* Our Code Start
-	emit(7, 0, 0 0);
+
+	//*Jump to start
+	emit(7, 0, 0, 0);
 	addToSymbolTable(3, "main", 0, 0, 0, 0);
 	level = -1;
 	block();
-	
 
 	//! Check For Period at end, must end in period
 
+	//*add a hlt to the program
+	emit(11, 0, 0, 0);
+
+	code[0].m = table[0].addr;
+
+	for( int i = 0; i < codeIdx; i++ )
+	{
+		if( code[i].opcode == 5 )
+		{
+			code[i].m = table[ code[i].m ].addr;
+		}
+
+		//! Print Table and or code
+		return code;
+	}
 
 	//* Our Code End
 
