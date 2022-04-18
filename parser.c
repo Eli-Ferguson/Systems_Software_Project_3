@@ -221,6 +221,62 @@ void procedure_declaration()
 	}		
 }
 
+void condition()
+{
+	expression();
+	if ( list[listIdx].type == eqlsym)
+    {
+		listIdx++;
+		expression();
+        //* emit EQL
+		emit( 18, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+		registerCounter--;
+    }
+	else if ( list[listIdx].type == neqsym )
+    {
+		listIdx++;
+		expression();
+        //* emit NEQ
+		emit( 19, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter);
+		registerCounter--;
+    }
+	else if ( list[listIdx].type == lsssym )
+    {
+		listIdx++;
+		expression();
+        //* emit LSS
+		emit( 20, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+		registerCounter--;
+    }
+	else if ( list[listIdx].type == leqsym )
+    {
+		listIdx++;
+		expression();
+        //* emit LEQ
+		emit( 21, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+		registerCounter--;
+    }
+	else if ( list[listIdx].type == gtrsym )
+    {
+		listIdx++;
+		expression();
+        //* GTR
+		emit( 22, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter);
+		registerCounter--;
+    }
+	else if ( list[listIdx].type == geqsym )
+    {
+		listIdx++;
+		expression();
+        //* emit GEQ
+		emit( 23, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+		registerCounter--;
+    }
+	else
+		//! error 21
+        printparseerror(21);
+}
+
 void addToSymbolTable(int k, char n[], int s, int l, int a, int m)
 {
 	table[tIndex].kind = k;
