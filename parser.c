@@ -467,7 +467,36 @@ void statement(){
 			//emit STO
 			emit(4, registerCounter, level - table[symIdx].level, arrayIdxReg);
 			registerCounter -= 2;
-		}
+		else {
+            symIdx = findsymbol(symbolName, 1);
+			if (symIdx == -1) {
+                if (findsymbol(symbolName, 2) != -1)
+					printparseerror(12);
+				else if (findsymbol(symbolName, 3) != -1)
+					printparseerror(9);
+				else
+					printparseerror(10);
+            }
+			registerCounter++;
+			if (registerCounter >= 10) {
+                printparseerror(14);
+            }
+			emit(1, registerCounter, 0, table[symidx].addr); // LIT
+			varlocreg = registerCounter;
+			registerCounter++;
+			if (registerCounter >= 10) {
+                printparseerror(14);
+            }
+			emit(10, registerCounter, 0, 0) // RED
+			emit (4, registerCounter, level - table[symidx].level, varlocreg); // STO
+			registerCounter -= 2;
+        }
+	//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    if ( list[listIdx].type == writesym ) {
+        listIdx++;
+        expression();
+        emit(9, registerCounter, 0, 0); // WRT
+        registerCounter--;    
 	}
 }
 
