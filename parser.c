@@ -240,8 +240,8 @@ void statement(){
 	//ASSIGNMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if(list[listIdx].type == assignsym)
 	{
-		// strcpy(symbolName, list[listIdx].name);
-		strcpy(symbolName, ":=");
+		strcpy(symbolName, list[listIdx].name);
+		//strcpy(symbolName, ":=");
 		listIdx++;
 		
 		if(list[listIdx].type == lbracketsym) {	
