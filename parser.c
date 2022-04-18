@@ -189,7 +189,7 @@ void emit(int opname, int reg, int level, int mvalue)
 void procedure_declaration()
 {
 	char * symbolName = malloc(sizeof(char) * 12);
-	
+
 	while (list[listIdx].type == procsym)
 	{
 		listIdx++;
@@ -361,6 +361,135 @@ void term()
 			emit( 17, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
 			registerCounter--;
 		}
+	}
+}
+
+void factor()
+{
+	//char symbolName[12];
+
+	char * symbolName = malloc(sizeof(char) * 12);
+	int symIdx;
+	int arrayIdxReg;
+	int varLocReg;
+
+	if ( list[listIdx].type == identsym )
+	{
+		//* symbolName = list[listIdx].name;
+
+		listIdx++;
+
+		if ( list[listIdx].type == lbracketsym )
+		{
+			listIdx++;
+			symIdx = findsymbol(symbolName, 2);
+			if ( symIdx == -1 )
+			{
+				if ( findsymbol(symbolName, 1) != -1 )
+				{
+					//! error 11
+					printparseerror(11);
+				}
+				else if ( findsymbol(symbolName, 3) != -1 )
+				{
+					//! error 9
+					printparseerror(9);
+				}
+				else
+				{
+					//! error 10
+					printparseerror(10);
+				}
+			}
+			expression();
+			arrayIdxReg = registerCounter;
+			if  ( list[listIdx].type != rbracketsym )
+			{
+				//! error 5
+				printparseerror(5);
+			}
+			listIdx++;
+			registerCounter++;
+			if ( registerCounter >= 10 )
+			{
+				//! error 14
+				printparseerror(14);
+			}
+			//* emit LIT
+			emit( 1, registerCounter, 0, table[symIdx].addr );
+
+			//* emit ADD
+			emit( 13, arrayIdxReg, arrayIdxReg, registerCounter);
+			registerCounter--;
+
+			//* emit LOD
+			emit( 3, registerCounter, ( level - table[symIdx].level ), arrayIdxReg );
+		}
+		else
+		{
+			symIdx = findsymbol(symbolName, 1);
+
+			if ( symIdx == -1 )
+			{
+				if ( findsymbol(symbolName, 2) != -1 )
+				{
+					//! error 12
+					printparseerror(12);
+				}
+				else if ( findsymbol(symbolName, 3) != -1 )
+				{
+					//! error 9
+					printparseerror(9);
+				}
+				else
+				{
+					//! error 10
+					printparseerror(10);
+				}
+			}
+			registerCounter++;
+
+			if ( registerCounter >= 10 )
+			{
+				//! error 14
+				printparseerror(14);
+			}
+
+			//* emit LIT
+			emit( 1, registerCounter, 0, table[symIdx].addr );
+			varLocReg = registerCounter;
+
+			//* emit LOD
+			emit( 3, registerCounter, ( level - table[symIdx].level ), varLocReg );
+		}
+	}
+	else if ( list[listIdx].type == numbersym )
+	{
+		registerCounter++;
+		if ( registerCounter >= 10 )
+		{
+			//! error 14
+			printparseerror(14);
+		}
+		//* emit LIT
+		emit( 1, registerCounter, 0, list[listIdx].value );
+		listIdx++;
+	}
+	else if ( list[listIdx].type == lparenthesissym )
+	{
+		listIdx++;
+		expression();
+		if ( list[listIdx].type != rparenthesissym )
+		{
+			//! error 23
+			printparseerror(23);
+		}
+		listIdx++;
+	}
+	else
+	{
+		//! error 24
+		printparseerror(24);
 	}
 }
 
