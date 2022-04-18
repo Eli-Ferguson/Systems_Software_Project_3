@@ -26,7 +26,7 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int code, codeIdx, table, tableidx, list, listidx, level, registercounter;
+int code, codeIdx, table, tableIdx, list, listidx, level, registercounter;
 
 instruction *parse(lexeme *list, int printTable, int printCode)
 {
@@ -57,9 +57,6 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 		{
 			code[i].m = table[ code[i].m ].addr;
 		}
-
-		//! Print Table and or code
-		return code;
 	}
 
 	//* Our Code End
@@ -74,6 +71,18 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 	// mark the end of the code
 	code[cIndex].opcode = -1;
 	return code;
+}
+
+void block()
+{
+	level++;
+	int procedureIdx = tableIdx - 1;
+	int x = var_declaration();
+	table[ procedureIdx ].addr = codeIdx;
+	emit( 6, 0, 0, x );
+	statement();
+	mark();
+	level--;
 }
 
 void emit(int opname, int reg, int level, int mvalue)
