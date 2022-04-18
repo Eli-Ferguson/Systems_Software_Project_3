@@ -348,13 +348,15 @@ void statement(){
 
 		if( list[listIdx].type != endsym ) 
 		{
-			if( list[listIdx].type == identsym ||
+			if(
+				list[listIdx].type == identsym ||
 				list[listIdx].type == callsym ||
 				list[listIdx].type == beginsym ||
 				list[listIdx].type == ifsym ||
 				list[listIdx].type == dosym ||
 				list[listIdx].type == readsym ||
-				list[listIdx].type == writesym)
+				list[listIdx].type == writesym
+			)
 			{
 				printparseerror(16);
 			}
