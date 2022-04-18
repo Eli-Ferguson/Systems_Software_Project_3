@@ -235,7 +235,7 @@ void statement(){
 	int symIdx, arrayIdxReg, varLocReg, jpcIdx, jmpIdx, loopIdx;
 	char * symbolName = malloc(sizeof(char) * 12);
 
-	printf("token:%d\t%s\n", list[listIdx].type, list[listIdx].name);
+	//printf("token:%d\t%s\n", list[listIdx].type, list[listIdx].name);
 
 	//ASSIGNMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if(list[listIdx].type == assignsym)
@@ -349,7 +349,7 @@ void statement(){
 		do {
 			listIdx++;
 			statement();
-		} while( list[listIdx].type == semicolonsym, identsym );
+		} while( list[listIdx].type == semicolonsym );
 
 		if( list[listIdx].type != endsym ) 
 		{
