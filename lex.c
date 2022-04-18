@@ -27,6 +27,16 @@ int whileDigit(char * input, int i);
 void printlexerror(int type);
 void printtokens();
 
+void printOurs( lexeme in, int t )
+{
+	if( t == 0 )
+		printf("%d\t%d\n", in.type, in.value);
+	if(t == 1)
+		printf("%d\t%s\n", in.type, in.name);
+	if( t == 2 )
+		printf("%d\t%d\n", in.type, in.type);
+}
+
 lexeme * lexanalyzer(char *input, int printFlag)
 {
 	list = malloc(sizeof(lexeme) * MAX_NUMBER_TOKENS);
@@ -66,6 +76,7 @@ lexeme * lexanalyzer(char *input, int printFlag)
 			list[listPos].type = numbersym;
 			list[listPos].value = value;
 
+			//printOurs(list[listPos], 0);
 			listPos++;
 		}
 		
@@ -104,6 +115,7 @@ lexeme * lexanalyzer(char *input, int printFlag)
 				list[listPos].type = identsym;
 			}
 
+			//printOurs(list[listPos], 1);
 			listPos++;
 		}
 		
@@ -144,16 +156,18 @@ lexeme * lexanalyzer(char *input, int printFlag)
 					sym = symbolCheck( input[i] );
 			};
 			list[ listPos ].type = sym;
+
+			//printOurs(list[listPos], 2);
 			listPos++;
-			
 		}
 
 		// If Period found return list
 		if ( list[listPos - 1].type == periodsym)
 		{				
 			if (printFlag)
+				printf("\nlex_index = listPos\n");
 				lex_index = listPos;
-				//printtokens();
+				printtokens();
 
 			return list;
 		}
