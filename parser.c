@@ -15,20 +15,18 @@ int cIndex;
 symbol *table;
 int tIndex;
 
-
-//* Adds instruction to code Array
 void emit(int opname, int reg, int level, int mvalue);
-
-//* Adds a new symbol to the table
 void addToSymbolTable(int k, char n[], int s, int l, int a, int m);
-
-//*
 void mark();
 int multipledeclarationcheck(char name[]);
 int findsymbol(char name[], int kind);
 void printparseerror(int err_code);
 void printsymboltable();
 void printassemblycode();
+
+//* Global Variables
+int registerCounter = -1;
+int code, codeidx, table, tableidx, list, listidx, level, registercounter;
 
 instruction *parse(lexeme *list, int printTable, int printCode)
 {
@@ -37,6 +35,19 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 	cIndex = 0;
 	table = malloc(sizeof(symbol) * MAX_SYMBOL_COUNT);
 	tIndex = 0;
+
+	//* Our Code Start
+	emit(7, 0, 0 0);
+	addToSymbolTable(3, "main", 0, 0, 0, 0);
+	level = -1;
+	block();
+	
+
+	//! Check For Period at end, must end in period
+
+
+	//* Our Code End
+
 	
 	// print off table and code
 	if (printTable)
