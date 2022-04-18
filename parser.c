@@ -39,6 +39,8 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 {
 	printf("Here");
 
+	return code;
+
 	list = list;
 
 	// set up program variables

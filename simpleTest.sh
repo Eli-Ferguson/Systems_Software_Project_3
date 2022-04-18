@@ -11,6 +11,7 @@ echo "Compiles"
 
 echo -n "Symbol Table Test : "
 ./a.out symboltable.txt -a -s > output.txt
+
 executed=$?
 if [[ $executed !=  0 ]]; then
 	echo ":'("
