@@ -225,7 +225,7 @@ void procedure_declaration()
 
 void statement(){
 
-	int symIdx, arrayIdxReg, varlocreg, jpcIdx, jmpIdx, loopIdx;
+	int symIdx, arrayIdxReg, varLocReg, jpcIdx, jmpIdx, loopIdx;
 	char * symbolName;
 
 	//ASSIGNMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -253,12 +253,12 @@ void statement(){
 			arrayIdxReg = registerCounter;
 
 			if(list[listIdx].type != rbracketsym){
-				printparseerror(5)
+				printparseerror(5);
 			}
 			listIdx++;
 
 			if(list[listIdx].type != assignsym){
-				printparseerror(13)
+				printparseerror(13);
 			}
 			listIdx++;
 
@@ -282,7 +282,7 @@ void statement(){
 		}
 
 		else{
-			symIdx = findSymbol(symbolname, 1);
+			symIdx = findSymbol(symbolName, 1);
 
 			if(symIdx == -1) {
 				if( findSymbol(symbolName, 2) != -1 ) {
@@ -300,15 +300,15 @@ void statement(){
 			if(registerCounter >= 10) printparseerror(14);
 
 			//emit LIT
-			emit(1, registerCounter, 0, table[symIdx].addr)
+			emit(1, registerCounter, 0, table[symIdx].addr);
 
-			varlocreg = registerCounter;
+			varLocReg = registerCounter;
 			if( list[listIdx].type != assignsym) printparseerror(13);
 			listIdx++;
 			expression();
 
 			//emit STO
-			emit(4, registerCounter, (level - table[symIdx].level), varlocreg);
+			emit(4, registerCounter, (level - table[symIdx].level), varLocReg);
 			registerCounter -= 2;
 		}
 	}
@@ -317,9 +317,9 @@ void statement(){
 		listIdx++;
 		if( list[listIdx].type != identsym) printparseerror(15);
 
-		symIdx = findSymbol(list[listidx].name. 3);
+		symIdx = findSymbol( list[listIdx].name, 3);
 		if(symIdx == -1) {
-			if( findsymbol(list[listidx].name, 1) != -1 || findsymbol(list[listidx].name, 2) != -1 ) {
+			if( findsymbol(list[listIdx].name, 1) != -1 || findsymbol(list[listIdx].name, 2) != -1 ) {
 				printparseerror(15);
 			}
 			else { 
@@ -337,7 +337,7 @@ void statement(){
 		do {
 			listIdx++;
 			statement();
-		} while( list[listIdx] == semicolonsym );
+		} while( list[listIdx].type == semicolonsym );
 
 		if( list[listIdx].type != endsym ) {
 			if( list[listIdx].type != identsym ||
@@ -360,26 +360,26 @@ void statement(){
 	if( list[listIdx].type == ifsym ) {
 		listIdx++;
 		condition;
-		jpcidx = cIndex;
+		int jpcidx = cIndex;
 
 		//emit JPC
 		emit(8, registerCounter, 0, 0);
 		registerCounter--;
 
-		if( list[listIdx] != questionsym ){
+		if( list[listIdx].type != questionsym ){
 			printparseerror(18);
 		}
 		listIdx++;
 		statement();
 
-		if( list[listIdx] == colonsym ) {
+		if( list[listIdx].type == colonsym ) {
 			listIdx++;
 			jmpIdx = cIndex;
 			//emit JMP
 			emit(7, 0, 0, 0);
 			code[jpcIdx].m = cIndex;
 			statement();
-			code[jmpIdx] = cIndex
+			code[jmpIdx].m = cIndex;
 		}
 		else {
 			code[jpcIdx].m = cIndex;
@@ -391,7 +391,7 @@ void statement(){
 		listIdx++;
 		loopIdx = cIndex;
 		statement();
-		if( list[listIdx] != whilesym ) {
+		if( list[listIdx].type != whilesym ) {
 			printparseerror(19);
 		}
 		listIdx++;
@@ -415,16 +415,16 @@ void statement(){
 	}
 
 	//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx] == readsym ) {
+	if( list[listIdx].type == readsym ) {
 		listIdx++;
 
-		if( list[listIdx] != identsym ) {
+		if( list[listIdx].type != identsym ) {
 			printparseerror(20);
 		}
 		symbolName = list[listIdx].name;
 		listIdx++;
 
-		if( list[listName] == lbracketsym ) {
+		if( list[listIdx].type == lbracketsym ) {
 			listIdx++;
 			symIdx = findSymbol( symbolName, 2 );
 			if(symIdx == -1) {
