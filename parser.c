@@ -517,13 +517,14 @@ void statement(){
 			emit(4, registerCounter, level - table[symIdx].level, varLocReg); // STO
 			registerCounter -= 2;
         }
-	//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    if ( list[listIdx].type == writesym )
-	{
-        listIdx++;
-        expression();
-        emit(9, registerCounter, 0, 0); // WRT
-        registerCounter--;    
+		//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		if ( list[listIdx].type == writesym )
+		{
+			listIdx++;
+			expression();
+			emit(9, registerCounter, 0, 0); // WRT
+			registerCounter--;    
+		}
 	}
 }
 
@@ -579,8 +580,10 @@ void condition()
 		registerCounter--;
     }
 	else
+	{
 		//! error 21
         printparseerror(21);
+	}
 }
 
 void expression()
@@ -933,7 +936,7 @@ void printparseerror(int err_code)
 	free(code);
 	free(table);
 
-	//! Add exit();
+	//! Add exit()
 }
 
 void printsymboltable()
