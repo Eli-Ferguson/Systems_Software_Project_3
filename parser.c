@@ -26,7 +26,7 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int code, codeIdx, table, tableIdx, listIdx, level, registerCounter;
+int codeIdx, tableIdx, listIdx, level, registerCounter;
 
 lexeme * list;
 
@@ -112,7 +112,7 @@ int var_declaration()
 				printparseerror(2);
 			}
 
-			if ( multipledeclarationcheck(list[listIdx].type) != -1 )
+			if ( multipledeclarationcheck(list[listIdx].name) != -1 )
 			{
 				//! error 3
 				printparseerror(3);
