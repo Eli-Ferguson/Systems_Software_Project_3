@@ -165,9 +165,10 @@ lexeme * lexanalyzer(char *input, int printFlag)
 		if ( list[listPos - 1].type == periodsym)
 		{				
 			if (printFlag)
-				printf("\nlex_index = listPos\n");
+			{
 				lex_index = listPos;
-				printtokens();
+				//printtokens();
+			}
 
 			return list;
 		}

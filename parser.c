@@ -55,6 +55,7 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 
 	//! Check For Period at end, must end in period
 
+
 	//*add a hlt to the program
 	emit(11, 0, 0, 0);
 
@@ -87,7 +88,9 @@ void block()
 	level++;
 	int procedureIdx = tIndex - 1;
 	int x = var_declaration();
+	procedure_declaration();
 	table[ procedureIdx ].addr = cIndex;
+	//* INC
 	emit( 6, 0, 0, x );
 	statement();
 	mark();
@@ -345,13 +348,15 @@ void statement(){
 
 		if( list[listIdx].type != endsym ) 
 		{
-			if( list[listIdx].type != identsym ||
-				list[listIdx].type != callsym ||
-				list[listIdx].type != beginsym ||
-				list[listIdx].type != ifsym ||
-				list[listIdx].type != dosym ||
-				list[listIdx].type != readsym ||
-				list[listIdx].type != writesym)
+			if( list[listIdx].type == identsym ||
+				list[listIdx].type == callsym ||
+				list[listIdx].type == beginsym ||
+				list[listIdx].type == ifsym ||
+				list[listIdx].type == dosym ||
+				list[listIdx].type == readsym ||
+				list[listIdx].type == writesym)
+
+			// if( list[listIdx].type == identsym, callsym, beginsym, ifsym, dosym, readsym, writesym )
 			{
 				printparseerror(16);
 			}
