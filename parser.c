@@ -377,7 +377,7 @@ void factor()
 
 	if ( list[listIdx].type == identsym )
 	{
-		symbolName = list[listIdx].name;
+		strcpy(symbolName, list[listIdx].name);
 
 		listIdx++;
 
