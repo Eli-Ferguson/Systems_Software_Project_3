@@ -348,15 +348,15 @@ void statement(){
 
 		if( list[listIdx].type != endsym ) 
 		{
-			if( list[listIdx].type == identsym ||
-				list[listIdx].type == callsym ||
-				list[listIdx].type == beginsym ||
-				list[listIdx].type == ifsym ||
-				list[listIdx].type == dosym ||
-				list[listIdx].type == readsym ||
-				list[listIdx].type == writesym)
+			// if( list[listIdx].type == identsym ||
+			// 	list[listIdx].type == callsym ||
+			// 	list[listIdx].type == beginsym ||
+			// 	list[listIdx].type == ifsym ||
+			// 	list[listIdx].type == dosym ||
+			// 	list[listIdx].type == readsym ||
+			// 	list[listIdx].type == writesym)
 
-			// if( list[listIdx].type == identsym, callsym, beginsym, ifsym, dosym, readsym, writesym )
+			if( list[listIdx].type == identsym, callsym, beginsym, ifsym, dosym, readsym, writesym )
 			{
 				printparseerror(16);
 			}
@@ -364,8 +364,8 @@ void statement(){
 			{
 				printparseerror(17);
 			}
-			listIdx++;
 		}
+		listIdx++;
 	}
 
 	//IF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
