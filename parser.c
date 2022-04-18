@@ -26,7 +26,9 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int code, codeIdx, table, tableIdx, list, listIdx, level, registercounter;
+int code, codeIdx, table, tableIdx, listIdx, level, registercounter;
+
+// lexeme * list;
 
 void block();
 
@@ -95,7 +97,7 @@ int var_declaration()
 	int symbolname;
 	int arraysize;
 
-	if list[listIdx] is varsym
+	if ( list[listIdx] == varsym )
 	{
 		do
 		{
