@@ -95,52 +95,52 @@ int var_declaration()
 	int symbolname;
 	int arraysize;
 
-	if list[listidx] is varsym
+	if list[listIdx] is varsym
 	{
 		do
 		{
 			listIdx++
 
-			if ( list[listidx] != identsym )
+			if ( list[listIdx] != identsym )
 			{
 				//! error 2
 				printparseerror(2);
 			}
 
-			if ( multipledeclarationcheck(list[listidx].name) != -1 )
+			if ( multipledeclarationcheck(list[listIdx].name) != -1 )
 			{
 				//! error 3
 				printparseerror(3);
 			}
 
-			symbolname = list[listidx].name;
-			listidx++;
+			symbolname = list[listIdx].name;
+			listIdx++;
 
-			if ( list[listidx] == lbracketsym )
+			if ( list[listIdx] == lbracketsym )
 			{
-				listidx++;
+				listIdx++;
 
-				if ( list[listidx] != numbersym || list[listidx].value == 0 )
+				if ( list[listIdx] != numbersym || list[listIdx].value == 0 )
 				{
 					//! error 4
 					printparseerror(4);
 				}
 
-				arraysize = list[listidx].value;
-				listidx++;
+				arraysize = list[listIdx].value;
+				listIdx++;
 
-				if ( list[listidx] is multsym, divsym, modsym, addsym, subsym )
+				if ( list[listIdx] is multsym, divsym, modsym, addsym, subsym )
 				{
 					//! error 4
 					printparseerror(4);
 				}
-				else if ( list[listidx] is not rbracket )
+				else if ( list[listIdx] is not rbracket )
 				{
 					//! error 5
 					printparseerror(5);
 				}
 
-				listidx++;
+				listIdx++;
 				addtosymboltable(2, symbolname, arraysize, level, memorysize, 0);
 				memorysize += arraysize;
 			}
@@ -149,20 +149,20 @@ int var_declaration()
 				addtosymboltable(1, symbolname, 0, level, memorysize, 0)
 				memorysize++
 			}
-		} while ( list[listidx] is commasym );
+		} while ( list[listIdx] is commasym );
 
-		if ( list[listidx] is identsym )
+		if ( list[listIdx] is identsym )
 		{
 			//! error 6
 			printparseerror(6);
 		}
-		else if ( list[listidx] is not semicolonsym )
+		else if ( list[listIdx] is not semicolonsym )
 		{
 			//! error 7
 			printparseerror(7);
 		}
 
-		listidx++
+		listIdx++
 
 		return memorysize
 	}
