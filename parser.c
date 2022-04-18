@@ -245,10 +245,10 @@ void statement(){
 			listIdx++;
 			symIdx = findsymbol(symbolName, 2);
 			if(symIdx == -1){
-				if( findsymbol(symbolName, 2) ) {
+				if( findsymbol(symbolName, 1) != -1 ) {
 					printparseerror(11);
 				}
-				else if( findsymbol(symbolName, 2) ) {
+				else if( findsymbol(symbolName, 3) != -1 ) {
 					printparseerror(9);
 				}
 				else {
