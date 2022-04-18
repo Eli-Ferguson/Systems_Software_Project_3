@@ -277,6 +277,38 @@ void condition()
         printparseerror(21);
 }
 
+void term()
+{
+	factor();
+	while ( list[listIdx].type == multsym, divsym, modsym )
+	{
+		if ( list[listIdx].type == multsym )
+		{
+			listIdx++;
+			factor();
+			//* emit MUL
+			emit( 15, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+			registerCounter--;
+		}
+		else if ( list[listIdx].type == divsym )
+		{
+			listIdx++;
+			factor();
+			//* emit DIV
+			emit( 16, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+			registerCounter--;
+		}
+		else
+		{
+			listIdx++;
+			factor();
+			//* emit MOD
+			emit( 17, ( registerCounter - 1 ), ( registerCounter - 1 ), registerCounter );
+			registerCounter--;
+		}
+	}
+}
+
 void addToSymbolTable(int k, char n[], int s, int l, int a, int m)
 {
 	table[tIndex].kind = k;
