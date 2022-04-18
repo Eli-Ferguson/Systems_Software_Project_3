@@ -26,7 +26,10 @@ void printassemblycode();
 
 //* Global Variables
 int registerCounter = -1;
-int code, codeIdx, table, tableIdx, list, listidx, level, registercounter;
+int code, codeIdx, table, tableIdx, list, listIdx, level, registercounter;
+
+void block();
+
 
 instruction *parse(lexeme *list, int printTable, int printCode)
 {
@@ -84,6 +87,89 @@ void block()
 	statement();
 	mark();
 	level--;
+}
+
+int var_declaration()
+{
+	int memorysize = 3;
+	int symbolname;
+	int arraysize;
+
+	if list[listidx] is varsym
+	{
+		do
+		{
+			listIdx++
+
+			if ( list[listidx] != identsym )
+			{
+				//! error 2
+				printparseerror(2);
+			}
+
+			if ( multipledeclarationcheck(list[listidx].name) != -1 )
+			{
+				//! error 3
+				printparseerror(3);
+			}
+
+			symbolname = list[listidx].name;
+			listidx++;
+
+			if ( list[listidx] == lbracketsym )
+			{
+				listidx++;
+
+				if ( list[listidx] != numbersym || list[listidx].value == 0 )
+				{
+					//! error 4
+					printparseerror(4);
+				}
+
+				arraysize = list[listidx].value;
+				listidx++;
+
+				if ( list[listidx] is multsym, divsym, modsym, addsym, subsym )
+				{
+					//! error 4
+					printparseerror(4);
+				}
+				else if ( list[listidx] is not rbracket )
+				{
+					//! error 5
+					printparseerror(5);
+				}
+
+				listidx++;
+				addtosymboltable(2, symbolname, arraysize, level, memorysize, 0);
+				memorysize += arraysize;
+			}
+			else
+			{
+				addtosymboltable(1, symbolname, 0, level, memorysize, 0)
+				memorysize++
+			}
+		} while ( list[listidx] is commasym );
+
+		if ( list[listidx] is identsym )
+		{
+			//! error 6
+			printparseerror(6);
+		}
+		else if ( list[listidx] is not semicolonsym )
+		{
+			//! error 7
+			printparseerror(7);
+		}
+
+		listidx++
+
+		return memorysize
+	}
+	else
+	{
+		return memorysize
+	}
 }
 
 void emit(int opname, int reg, int level, int mvalue)
