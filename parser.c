@@ -223,6 +223,8 @@ void procedure_declaration()
 	}
 }
 
+//* Statement()
+
 void condition()
 {
 	expression();
