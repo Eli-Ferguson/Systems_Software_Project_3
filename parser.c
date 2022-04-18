@@ -188,7 +188,8 @@ void emit(int opname, int reg, int level, int mvalue)
 
 void procedure_declaration()
 {
-	char * symbolname = malloc(sizeof(char) * 12);
+	char * symbolName = malloc(sizeof(char) * 12);
+	
 	while (list[listIdx].type == procsym)
 	{
 		listIdx++;
