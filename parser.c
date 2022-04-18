@@ -70,19 +70,18 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 
 	//* Our Code End
 
-	
+
 	// print off table and code
 	if (printTable)
 		printsymboltable();
 	if (printCode)
 		printassemblycode();
-	
+
 	// mark the end of the code
 	code[cIndex].opcode = -1;
 	return code;
 }
 
-//? Our BLock Function
 void block()
 {
 	level++;
@@ -203,24 +202,24 @@ void procedure_declaration()
 			//! error 3
 			printparseerror(3);
         }
-		strcpy(symbolname, list[listIdx].name);
+		strcpy(symbolName, list[listIdx].name);
 		listIdx++;
 		if (list[listIdx].type != semicolonsym)
         {
 			//! error 8
             printparseerror(8);
-        }	
+        }
 		listIdx++;
-		addtosymboltable(3, symbolname, 0, level, 0, 0);
+		addtosymboltable(3, symbolName, 0, level, 0, 0);
 		block();
 		if (list[listIdx].type != semicolonsym)
         {
 			//! error 7
             printparseerror(7);
-        }	
+        }
 		listIdx++;
 		emit(2, 0, 0, 0); // RET
-	}		
+	}
 }
 
 void condition()
@@ -301,9 +300,9 @@ void expression()
 				term();
 				emit(14, registerCounter - 1, registerCounter - 1, registerCounter); // SUB
 				registerCounter--;
-            }	
-        }	
-    } 
+            }
+        }
+    }
     else
     {
         term();
@@ -322,7 +321,7 @@ void expression()
 				term();
 				emit(14, registerCounter - 1, registerCounter - 1, registerCounter); // SUB
 				registerCounter--;
-            }	
+            }
         }
     }
 	if (list[listIdx].type == lparenthesissym || list[listIdx].type == identsym || list[listIdx].type == numbersym)
@@ -496,7 +495,7 @@ void printparseerror(int err_code)
 			printf("Implementation Error: unrecognized error code\n");
 			break;
 	}
-	
+
 	free(code);
 	free(table);
 
@@ -510,8 +509,8 @@ void printsymboltable()
 	printf("Kind | Name        | Size | Level | Address | Mark\n");
 	printf("---------------------------------------------------\n");
 	for (i = 0; i < tIndex; i++)
-		printf("%4d | %11s | %5d | %4d | %5d | %5d\n", table[i].kind, table[i].name, table[i].size, table[i].level, table[i].addr, table[i].mark); 
-	
+		printf("%4d | %11s | %5d | %4d | %5d | %5d\n", table[i].kind, table[i].name, table[i].size, table[i].level, table[i].addr, table[i].mark);
+
 	free(table);
 	table = NULL;
 }
@@ -601,7 +600,7 @@ void printassemblycode()
 		}
 		printf("%d\t%d\t%d\n", code[i].r, code[i].l, code[i].m);
 	}
-	
+
 	if (table != NULL)
 		free(table);
 }
