@@ -129,12 +129,12 @@ int var_declaration()
 				arraysize = list[listIdx].value;
 				listIdx++;
 
-				if ( list[listIdx] is multsym, divsym, modsym, addsym, subsym )
+				if ( list[listIdx] == multsym, divsym, modsym, addsym, subsym )
 				{
 					//! error 4
 					printparseerror(4);
 				}
-				else if ( list[listIdx] is not rbracket )
+				else if ( list[listIdx] != rbracket )
 				{
 					//! error 5
 					printparseerror(5);
@@ -149,14 +149,14 @@ int var_declaration()
 				addtosymboltable(1, symbolname, 0, level, memorysize, 0)
 				memorysize++
 			}
-		} while ( list[listIdx] is commasym );
+		} while ( list[listIdx] == commasym );
 
 		if ( list[listIdx] is identsym )
 		{
 			//! error 6
 			printparseerror(6);
 		}
-		else if ( list[listIdx] is not semicolonsym )
+		else if ( list[listIdx] != semicolonsym )
 		{
 			//! error 7
 			printparseerror(7);
