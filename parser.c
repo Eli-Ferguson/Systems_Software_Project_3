@@ -136,7 +136,11 @@ int var_declaration()
 				arraysize = list[listIdx].value;
 				listIdx++;
 
-				if ( list[listIdx].type == multsym, divsym, modsym, addsym, subsym )
+				if ( list[listIdx].type == multsym || 
+					 list[listIdx].type == divsym ||
+					 list[listIdx].type == modsym ||
+					 list[listIdx].type == addsym ||
+					 list[listIdx].type == subsym )
 				{
 					//! error 4
 					printparseerror(4);
@@ -365,8 +369,8 @@ void statement(){
 	if( list[listIdx].type == ifsym )
 	{
 		listIdx++;
-		condition;
-		int jpcidx = cIndex;
+		condition();
+		int jpcIdx = cIndex;
 
 		//emit JPC
 		emit(8, registerCounter, 0, 0);
@@ -645,7 +649,9 @@ void expression()
 void term()
 {
 	factor();
-	while ( list[listIdx].type == multsym, divsym, modsym )
+	while ( list[listIdx].type == multsym ||
+			list[listIdx].type == divsym ||
+			list[listIdx].type == modsym )
 	{
 		if ( list[listIdx].type == multsym )
 		{
