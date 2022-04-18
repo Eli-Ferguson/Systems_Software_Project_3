@@ -431,7 +431,7 @@ void statement(){
 				if(findsymbol( symbolName, 1 ) != -1) {
 					printparseerror(11);
 				}
-				else if(findSymbol(symbolName, 3) != -1) {
+				else if(findsymbol(symbolName, 3) != -1) {
 					printparseerror(9);
 				}
 				else {
