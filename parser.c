@@ -228,12 +228,12 @@ void procedure_declaration()
 void statement(){
 
 	int symIdx, arrayIdxReg, varLocReg, jpcIdx, jmpIdx, loopIdx;
-	char * symbolName;
+	char * symbolName = malloc(sizeof(char) * 12);
 
 	//ASSIGNMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if(list[listIdx].type == assignsym) {
 		
-		symbolName = list[listIdx].name;
+		strcpy(symbolName, list[listIdx].name);
 		listIdx++;
 		symIdx = findsymbol(symbolName, 2);
 
@@ -433,7 +433,7 @@ void statement(){
 		{
 			printparseerror(20);
 		}
-		symbolName = list[listIdx].name;
+		strcpy(symbolName, list[listIdx].name);
 		listIdx++;
 
 		if( list[listIdx].type == lbracketsym )
