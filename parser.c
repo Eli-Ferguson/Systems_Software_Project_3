@@ -345,6 +345,7 @@ void statement(){
 	{
 		do {
 			listIdx++;
+			printf("token:%d\n", list[listIdx].type);
 			statement();
 		} while( list[listIdx].type == semicolonsym );
 
@@ -422,14 +423,14 @@ void statement(){
 			printparseerror(14);
 		}
 
-		//emit LIT
+		//* emit LIT
 		emit(1, registerCounter, 0, 0);
 
-		//emit EQL
-		emit(18, registerCounter, 0, loopIdx);
+		//* emit EQL
+		emit(18, registerCounter - 1, registerCounter - 1, registerCounter);
 		registerCounter--;
 
-		//emit JPC
+		//* emit JPC
 		emit(8, registerCounter, 0, loopIdx);
 		registerCounter--;
 	}
@@ -538,6 +539,12 @@ void statement(){
 		expression();
 		emit(9, registerCounter, 0, 0); // WRT
 		registerCounter--;    
+	}
+
+	else
+	{
+		printf("Here\n");
+		listIdx++;
 	}
 }
 
