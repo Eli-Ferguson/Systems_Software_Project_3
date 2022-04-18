@@ -414,7 +414,7 @@ void statement(){
 		registerCounter--;
 	}
 
-	//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if( list[listIdx].type == readsym ) {
 		listIdx++;
 
@@ -428,10 +428,45 @@ void statement(){
 			listIdx++;
 			symIdx = findsymbol( symbolName, 2 );
 			if(symIdx == -1) {
-				if(findsymbol( symbolName, 1 ) != -1) {
-					
+				if(findSymbol( symbolName, 1 ) != -1) {
+					printparseerror(11);
+				}
+				else if(findSymbol(symbolName, 3) != -1) {
+					printparseerror(9);
+				}
+				else {
+					printparseerror(10);
 				}
 			}
+			expression();
+			arrayIdxReg = registerCounter;
+			if( list[listIdx].type != rbracketsym ) {
+				printparseerror(5);
+			}
+			listIdx++;
+			registerCounter++;
+			if( registerCounter >= 10 ) {
+				printparseerror(14);
+			}
+
+			//emit RED
+			emit(10, registerCounter, 0, 0);
+			registerCounter++;
+
+			if(registerCounter >= 10) {
+				printparseerror(14);
+			}
+
+			//emit LIT
+			emit(1, registerCounter, 0, table[symIdx].addr);
+
+			//emit ADD
+			emit(13, arrayIdxReg, arrayIdxReg, registerCounter);
+			registerCounter--;
+
+			//emit STO
+			emit(4, registerCounter, level - table[symIdx].level, arrayIdxReg);
+			registerCounter -= 2;
 		}
 	}
 }
