@@ -178,8 +178,6 @@ int var_declaration()
 	}
 }
 
-
-
 void emit(int opname, int reg, int level, int mvalue)
 {
 	code[cIndex].opcode = opname;
