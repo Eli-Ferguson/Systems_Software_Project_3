@@ -422,7 +422,7 @@ void statement(){
 		registerCounter--;
 	}
 
-//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	if( list[listIdx].type == readsym )
 	{
 		listIdx++;
@@ -517,14 +517,15 @@ void statement(){
 			emit(4, registerCounter, level - table[symIdx].level, varLocReg); // STO
 			registerCounter -= 2;
         }
-		//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		if ( list[listIdx].type == writesym )
-		{
-			listIdx++;
-			expression();
-			emit(9, registerCounter, 0, 0); // WRT
-			registerCounter--;    
-		}
+	}
+
+	//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	if ( list[listIdx].type == writesym )
+	{
+		listIdx++;
+		expression();
+		emit(9, registerCounter, 0, 0); // WRT
+		registerCounter--;    
 	}
 }
 
