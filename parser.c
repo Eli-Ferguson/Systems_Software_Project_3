@@ -37,10 +37,6 @@ void procedure_declaration(), statement(), condition(), expression(), term(), fa
 
 instruction *parse(lexeme *list, int printTable, int printCode)
 {
-	printf("Here");
-
-	return code;
-
 	list = list;
 
 	// set up program variables

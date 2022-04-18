@@ -153,7 +153,7 @@ lexeme * lexanalyzer(char *input, int printFlag)
 		{				
 			if (printFlag)
 				lex_index = listPos;
-				printtokens();
+				//printtokens();
 
 			return list;
 		}
