@@ -189,6 +189,38 @@ void emit(int opname, int reg, int level, int mvalue)
 	cIndex++;
 }
 
+void procedure_declaration()
+{
+	char[12] symbolname;
+	while (list[listIdx].type == proceduresym)
+	{
+		listIdx++;
+		if (list[listIdx].type != identsym)
+        {
+            printparseerror(2);
+        }
+		else if (multipledeclarationcheck(list[listIdx].name) != -1)
+        {
+			printparseerror(3);
+        }
+		strcpy(symbolname, list[listIdx].name);
+		listIdx++;
+		if (list[listIdx].type != semicolonsym)
+        {
+            printparseerror(8);
+        }	
+		listIdx++;
+		addtosymboltable(3, symbolname, 0, level, 0, 0);
+		block();
+		if (list[listIdx].type != semicolonsym)
+        {
+            printparseerror(7);
+        }	
+		listIdx++;
+		emit(2, 0, 0, 0); // RET
+	}		
+}
+
 void addToSymbolTable(int k, char n[], int s, int l, int a, int m)
 {
 	table[tIndex].kind = k;
