@@ -32,7 +32,7 @@ lexeme * list;
 
 void block();
 int var_declaration();
-void procedure(), statement(), condition(), expression(), term(), factor();
+void procedure_declaration(), statement(), condition(), expression(), term(), factor();
 
 
 instruction *parse(lexeme *list, int printTable, int printCode)
@@ -178,8 +178,6 @@ int var_declaration()
 	}
 }
 
-
-
 void emit(int opname, int reg, int level, int mvalue)
 {
 	code[cIndex].opcode = opname;
@@ -191,22 +189,25 @@ void emit(int opname, int reg, int level, int mvalue)
 
 void procedure_declaration()
 {
-	char[12] symbolname;
-	while (list[listIdx].type == proceduresym)
+	char * symbolname = malloc(sizeof(char) * 12);
+	while (list[listIdx].type == procsym)
 	{
 		listIdx++;
 		if (list[listIdx].type != identsym)
         {
+			//! error 2
             printparseerror(2);
         }
 		else if (multipledeclarationcheck(list[listIdx].name) != -1)
         {
+			//! error 3
 			printparseerror(3);
         }
 		strcpy(symbolname, list[listIdx].name);
 		listIdx++;
 		if (list[listIdx].type != semicolonsym)
         {
+			//! error 8
             printparseerror(8);
         }	
 		listIdx++;
@@ -214,6 +215,7 @@ void procedure_declaration()
 		block();
 		if (list[listIdx].type != semicolonsym)
         {
+			//! error 7
             printparseerror(7);
         }	
 		listIdx++;
@@ -275,6 +277,59 @@ void condition()
 	else
 		//! error 21
         printparseerror(21);
+}
+
+void expression()
+{
+    if (list[listIdx].type == subsym)
+    {
+        listIdx++;
+		term();
+		emit(12, registerCounter, 0, registerCounter); // NEG
+		while (list[listIdx].type == addsym || list[listIdx].type == subsym)
+        {
+            if (list[listIdx].type == addsym)
+            {
+                listIdx++;
+				term();
+				emit(13, registerCounter - 1, registerCounter - 1, registerCounter); // ADD
+				registerCounter--;
+            }
+			else
+            {
+                listIdx++;
+				term();
+				emit(14, registerCounter - 1, registerCounter - 1, registerCounter); // SUB
+				registerCounter--;
+            }	
+        }	
+    } 
+    else
+    {
+        term();
+		while (list[listIdx].type == addsym || list[listIdx].type == subsym)
+        {
+            if (list[listIdx].type == addsym)
+            {
+                listIdx++;
+				term();
+				emit(13, registerCounter - 1, registerCounter - 1, registerCounter); // ADD
+				registerCounter--;
+            }
+			else
+            {
+                listIdx++;
+				term();
+				emit(14, registerCounter - 1, registerCounter - 1, registerCounter); // SUB
+				registerCounter--;
+            }	
+        }
+    }
+	if (list[listIdx].type == lparenthesissym || list[listIdx].type == identsym || list[listIdx].type == numbersym)
+    {
+		//! error 22
+		printparseerror(22);
+    }
 }
 
 void term()
