@@ -236,8 +236,8 @@ void statement(){
 	char * symbolName = malloc(sizeof(char) * 12);
 
 	//ASSIGNMENT~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if(list[listIdx].type == assignsym) {
-		
+	if(list[listIdx].type == assignsym)
+	{
 		strcpy(symbolName, list[listIdx].name);
 		listIdx++;
 		
@@ -320,7 +320,8 @@ void statement(){
 		}
 	}
 	//CALL~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == callsym ) {
+	else if( list[listIdx].type == callsym )
+	{
 		listIdx++;
 		if( list[listIdx].type != identsym) printparseerror(15);
 
@@ -340,7 +341,8 @@ void statement(){
 	}
 
 	//BEGIN-END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == beginsym ) {
+	else if( list[listIdx].type == beginsym )
+	{
 		do {
 			listIdx++;
 			statement();
@@ -369,7 +371,7 @@ void statement(){
 	}
 
 	//IF~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == ifsym )
+	else if( list[listIdx].type == ifsym )
 	{
 		listIdx++;
 		condition();
@@ -402,7 +404,8 @@ void statement(){
 	}
 
 	//DO-WHILE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == dosym ){
+	else if( list[listIdx].type == dosym )
+	{
 		listIdx++;
 		loopIdx = cIndex;
 		statement();
@@ -432,7 +435,7 @@ void statement(){
 	}
 
 	//READ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if( list[listIdx].type == readsym )
+	else if( list[listIdx].type == readsym )
 	{
 		listIdx++;
 
@@ -529,7 +532,7 @@ void statement(){
 	}
 
 	//WRITE~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	if ( list[listIdx].type == writesym )
+	else if ( list[listIdx].type == writesym )
 	{
 		listIdx++;
 		expression();
