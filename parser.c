@@ -146,12 +146,12 @@ int var_declaration()
 				}
 
 				listIdx++;
-				addtosymboltable(2, symbolname, arraysize, level, memorysize, 0);
+				addToSymbolTable(2, symbolname, arraysize, level, memorysize, 0);
 				memorysize += arraysize;
 			}
 			else
 			{
-				addtosymboltable(1, symbolname, 0, level, memorysize, 0);
+				addToSymbolTable(1, symbolname, 0, level, memorysize, 0);
 				memorysize++;
 			}
 		} while ( list[listIdx].type == commasym );
