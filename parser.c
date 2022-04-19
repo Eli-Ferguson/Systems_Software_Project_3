@@ -1,3 +1,9 @@
+/*********************************************
+				Eli Ferguson
+				Drake Scott
+				Jason Co
+*********************************************/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -45,20 +51,18 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 	table = malloc(sizeof(symbol) * MAX_SYMBOL_COUNT);
 	tIndex = 0;
 
-	//* Our Code Start
-
 	//*Jump to start
 	emit(7, 0, 0, 0);
 	addToSymbolTable(3, "main", 0, 0, 0, 0);
 	level = -1;
 	block();
 
-	//! Check For Period at end, must end in period
+	//* Check For Period at end, must end in period
 	if(list[listIdx].type != 1){
 		printparseerror(1);
 	}
 
-	//*add a hlt to the program
+	//* add a hlt to the program
 	emit(11, 0, 0, 0);
 
 	code[0].m = table[0].addr;
@@ -70,9 +74,6 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 			code[i].m = table[ code[i].m ].addr;
 		}
 	}
-
-	//* Our Code End
-
 
 	// print off table and code
 	if (printTable)
@@ -92,7 +93,7 @@ void block()
 	int x = var_declaration();
 	procedure_declaration();
 	table[ procedureIdx ].addr = cIndex;
-	//* INC
+	//* emit INC
 	emit( 6, 0, 0, x );
 	statement();
 	mark();

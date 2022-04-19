@@ -31,7 +31,6 @@ int main(int argc, char *argv[])
 	i = 0;
 	
 	c = fgetc(ifp);
-
 	while (1)
 	{
 		input[i++] = c;
@@ -39,9 +38,8 @@ int main(int argc, char *argv[])
 		if (c == EOF)
 			break;
 	}
-
 	input[i] = '\0';
-
+	
 	for (i = 2; i < argc; i++)
 	{
 		if (argv[i][1] == 'l')
