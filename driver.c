@@ -37,15 +37,10 @@ int main(int argc, char *argv[])
 		input[i++] = c;
 		c = fgetc(ifp);
 		if (c == EOF)
-		//!if (c == '.')
-		{
-			//input[i++] = '.';
 			break;
-		}
 	}
 
 	input[i] = '\0';
-	// printf("%s\n", input);
 
 	for (i = 2; i < argc; i++)
 	{
