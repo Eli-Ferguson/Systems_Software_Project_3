@@ -31,22 +31,15 @@ int main(int argc, char *argv[])
 	i = 0;
 	
 	c = fgetc(ifp);
-
 	while (1)
 	{
 		input[i++] = c;
 		c = fgetc(ifp);
 		if (c == EOF)
-		//!if (c == '.')
-		{
-			//input[i++] = '.';
 			break;
-		}
 	}
-
 	input[i] = '\0';
-	// printf("%s\n", input);
-
+	
 	for (i = 2; i < argc; i++)
 	{
 		if (argv[i][1] == 'l')
