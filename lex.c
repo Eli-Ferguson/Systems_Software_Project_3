@@ -187,7 +187,7 @@ lexeme * lexanalyzer(char *input, int printFlag)
 	}
 
 	// File ends without a period
-	printf( "Failed To Find Period Token\n" );
+	// printf( "Failed To Find Period Token\n" );
 	return list;
 }
 
