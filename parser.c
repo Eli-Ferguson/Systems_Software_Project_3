@@ -54,7 +54,9 @@ instruction *parse(lexeme *list, int printTable, int printCode)
 	block();
 
 	//! Check For Period at end, must end in period
-
+	if(list[listIdx].type != 1){
+		printparseerror(1);
+	}
 
 	//*add a hlt to the program
 	emit(11, 0, 0, 0);
