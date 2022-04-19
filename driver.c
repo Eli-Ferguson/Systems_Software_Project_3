@@ -36,10 +36,10 @@ int main(int argc, char *argv[])
 	{
 		input[i++] = c;
 		c = fgetc(ifp);
-		//!if (c == EOF)
-		if (c == '.')
+		if (c == EOF)
+		//!if (c == '.')
 		{
-			input[i++] = '.';
+			//input[i++] = '.';
 			break;
 		}
 	}
