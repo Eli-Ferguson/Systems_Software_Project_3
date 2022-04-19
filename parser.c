@@ -545,12 +545,6 @@ void statement(){
 		emit(9, registerCounter, 0, 0); // WRT
 		registerCounter--;    
 	}
-
-	// if( list[listIdx].type == identsym )
-	// {
-	// 	listIdx++;
-	// 	statement();
-	// }
 }
 
 void condition()
@@ -700,8 +694,6 @@ void term()
 
 void factor()
 {
-	//char symbolName[12];
-
 	char * symbolName = malloc(sizeof(char) * 12);
 	int symIdx;
 	int arrayIdxReg;
